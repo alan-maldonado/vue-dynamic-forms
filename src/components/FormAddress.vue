@@ -6,16 +6,18 @@
       Where should we send your freshly roasted coffee beans?
     </h2>
 
-    <form class="form">
+    <form @input="submit" class="form">
       <div class="form-group">
         <label class="form-label" for="delivery_name">Name</label>
-        <input v-model="$v.form.recipient.$model" type="text" placeholder="Recipients Name" class="form-control" id="delivery_name">
+        <input v-model="$v.form.recipient.$model" type="text" placeholder="Recipients Name" class="form-control"
+          id="delivery_name">
         <div v-if="$v.form.recipient.$error" class="error">field is required</div>
       </div>
 
       <div class="form-group">
         <label class="form-label" for="address">Address</label>
-        <textarea v-model="$v.form.address.$model" placeholder="London Street 470978 New England" rows="3" class="form-control" id="address"></textarea>
+        <textarea v-model="$v.form.address.$model" placeholder="London Street 470978 New England" rows="3"
+          class="form-control" id="address"></textarea>
         <div v-if="$v.form.address.$error" class="error">field is required</div>
       </div>
     </form>
@@ -23,29 +25,38 @@
 </template>
 
 <script>
-  import {required} from 'vuelidate/lib/validators'
-  export default {
-    data () {
-      return {
-        form: {
-          address: null,
-          recipient: null
-        }
-      }
-    },
-    validations: {
+import { required } from 'vuelidate/lib/validators'
+export default {
+  data() {
+    return {
       form: {
-        address: {
-          required
-        },
-        recipient: {
-          required
-        }
+        address: null,
+        recipient: null
       }
     }
+  },
+  validations: {
+    form: {
+      address: {
+        required
+      },
+      recipient: {
+        required
+      }
+    }
+  },
+  methods: {
+    submit() {
+      if (!this.$v.$invalid) {
+        this.$emit('update', {
+          recipient: this.form.recipient,
+          address: this.form.address,
+        })
+      }
+
+    }
   }
+}
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
