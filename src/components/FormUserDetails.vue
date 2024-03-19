@@ -9,8 +9,7 @@
     <form @input="submit" class="form">
       <div class="form-group">
         <label class="form-label" for="email">Email</label>
-        <input type="text" v-model="$v.form.email.$model" placeholder="your@email.com"
-          class="form-control" id="email">
+        <input type="text" v-model="$v.form.email.$model" placeholder="your@email.com" class="form-control" id="email">
         <div v-if="$v.form.email.$error && !$v.form.email.required" class="error">email is required</div>
         <div v-if="$v.form.email.$error && !$v.form.email.email" class="error">email is invalid</div>
       </div>
@@ -26,8 +25,8 @@
 
       <div class="form-group">
         <label class="form-label" for="name">Name</label>
-        <input v-model="$v.form.name.$model" type="text" placeholder="What should we call you?"
-          class="form-control" id="name">
+        <input v-model="$v.form.name.$model" type="text" placeholder="What should we call you?" class="form-control"
+          id="name">
         <div v-if="$v.form.name.$error" class="error">name is required</div>
       </div>
     </form>
@@ -62,13 +61,14 @@ export default {
   },
   methods: {
     submit() {
-      if (!this.$v.$invalid) {
-        this.$emit('update', {
+      this.$emit('update', {
+        data: {
           email: this.form.email,
           password: this.form.password,
           name: this.form.name,
-        })
-      }
+        },
+        valid: !this.$v.$invalid,
+      })
 
     }
   }

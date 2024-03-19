@@ -68,13 +68,15 @@ export default {
     }
   },
   methods: {
-    processStep(stepData) {
-      Object.assign(this.form, stepData)
-      this.canGoNext = true
+    processStep(step) {
+      Object.assign(this.form, step.data)
+      console.log(step)
+      this.canGoNext = step.valid
     },
 
     goBack() {
       this.currentStepNumber--
+      this.canGoNext = true
     },
     goNext() {
       this.currentStepNumber++
