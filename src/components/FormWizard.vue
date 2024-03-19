@@ -1,6 +1,8 @@
 <template>
   <div>
-    <component :is="currentStep" @update="processStep" :wizard-data="form"></component>
+    <keep-alive>
+      <component :is="currentStep" @update="processStep" :wizard-data="form"></component>
+    </keep-alive>
 
     <div class="progress-bar">
       <div :style="`width: ${progress}%;`"></div>
