@@ -1,7 +1,7 @@
 <template>
   <div>
     <keep-alive>
-      <component :is="currentStep" @update="processStep" :wizard-data="form"></component>
+      <component ref="currentStep" :is="currentStep" @update="processStep" :wizard-data="form"></component>
     </keep-alive>
 
     <div class="progress-bar">
@@ -70,7 +70,6 @@ export default {
   methods: {
     processStep(step) {
       Object.assign(this.form, step.data)
-      console.log(step)
       this.canGoNext = step.valid
     },
 
@@ -80,7 +79,11 @@ export default {
     },
     goNext() {
       this.currentStepNumber++
-      this.canGoNext = false
+      // this.canGoNext = false
+      this.$nextTick(() => {
+        this.canGoNext = !this.$refs.currentStep.$v.$invalid
+        // this.$refs.currentStep.submit()
+      })
     }
   }
 }
