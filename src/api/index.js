@@ -1,7 +1,7 @@
 const user = {
-  email: 'john@travolta.io',
+  email: 'alan@maldonado.dev',
   password: '123456',
-  name: 'John'
+  name: 'Alan'
 }
 
 export const checkIfUserExistsInDB = email => {
