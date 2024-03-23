@@ -6,7 +6,7 @@
       Where should we send your freshly roasted coffee beans?
     </h2>
 
-    <form @input="submit" class="form">
+    <form class="form">
       <div class="form-group">
         <label class="form-label" for="delivery_name">Name</label>
         <input v-model="$v.form.recipient.$model" type="text" placeholder="Recipients Name" class="form-control"
@@ -46,7 +46,7 @@ export default {
   //     this.form.recipient = value
   //   }
   // },
-  activated () {
+  activated() {
     this.form.recipient = this.wizardData.name
   },
   validations: {
@@ -61,12 +61,16 @@ export default {
   },
   methods: {
     submit() {
-      this.$emit('update', {
-        data: {
-          recipient: this.form.recipient,
-          address: this.form.address,
-        },
-        valid: !this.$v.$invalid,
+      this.$v.$touch()
+      return new Promise((resolve, reject) => {
+        if (!this.$v.$invalid) {
+          resolve({
+            recipient: this.form.recipient,
+            address: this.form.address,
+          })
+        }
+
+        reject('invalid address')
       })
     }
   }
