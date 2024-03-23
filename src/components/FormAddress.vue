@@ -37,9 +37,17 @@ export default {
     return {
       form: {
         address: this.wizardData.address,
-        recipient: this.wizardData.recipient,
+        recipient: this.wizardData.name,
       }
     }
+  },
+  // watch: {
+  //   'wizardData.name' (value) {
+  //     this.form.recipient = value
+  //   }
+  // },
+  activated () {
+    this.form.recipient = this.wizardData.name
   },
   validations: {
     form: {
