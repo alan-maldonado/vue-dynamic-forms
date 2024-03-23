@@ -2,7 +2,12 @@
   <div>
     <div v-if="wizardInProgress" v-show="asyncState !== 'pending'">
       <keep-alive>
-        <component ref="currentStep" :is="currentStep" @update="processStep" :wizard-data="form"></component>
+        <component
+          ref="currentStep"
+          :is="currentStep"
+          @update="processStep"
+          @updateAsyncState="updateAsyncState"
+          :wizard-data="form"></component>
       </keep-alive>
 
       <div class="progress-bar">
@@ -120,6 +125,10 @@ export default {
     processStep(step) {
       Object.assign(this.form, step.data)
       this.canGoNext = step.valid
+    },
+
+    updateAsyncState(state) {
+      this.asyncState = state
     },
 
     goBack() {
